@@ -1,10 +1,19 @@
 using SchoolDirectoryApp_76239.Components;
+using SchoolDirectoryApp_76239.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<FavouritesService>();
+
+// Register our service and tell it the API's base address
+builder.Services.AddHttpClient<SchoolService>(client =>
+{
+    client.BaseAddress = new Uri("https://edutots.net/");
+});
 
 var app = builder.Build();
 
