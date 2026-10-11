@@ -1,9 +1,57 @@
 ﻿@page "/"
-@inject NavigationManager Navigation
+@rendermode InteractiveServer
+@inject SchoolService Service
+
+<PageTitle>Dashboard</PageTitle>
+
+<h1 class="fw-bold text-white mb-2">School Dashboard</h1>
+<p class="dashboard-subtitle mb-4">
+    Welcome to the School Directory management dashboard.
+</p>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h5 class="dashboard-subtitle">Total Schools</h5>
+            <h2 class="text-white fw-bold">@totalSchools</h2>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h5 class="dashboard-subtitle">Directory Status</h5>
+            <h2 class="text-success fw-bold">@status</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4">
+    <h4 class="text-white">School Directory</h4>
+    <p class="dashboard-subtitle">
+        Browse schools, search by name, view school details
+        and manage your favourites.
+    </p>
+
+    <a href="/schools" class="btn btn-primary">
+        Explore Schools
+    </a>
+</div>
 
 @code {
-    protected override void OnInitialized()
+    private int totalSchools;
+    private string status = "Loading...";
+
+    protected override async Task OnInitializedAsync()
     {
-        Navigation.NavigateTo("/schools");
+        try
+        {
+            var schools = await Service.GetSchoolsAsync();
+            totalSchools = schools.Count;
+            status = "Online";
+        }
+        catch
+        {
+            status = "Unavailable";
+        }
     }
 }

@@ -1,7 +1,7 @@
 html, body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: #0f172a; /* Deep Slate Background */
-    color: #f1f5f9; /* Crisp off-white text */
+    color: #f1f5f9; 
 }
 
 a, .btn-link {
@@ -59,9 +59,9 @@ h1:focus {
 }
 
 .form-control {
-    background-color: #0f172a;
+    background-color: #1e293b;
     color: #f1f5f9;
-    border-color: #334155;
+    border-color: #64748b;
     border-radius: 8px;
 }
 
@@ -120,3 +120,79 @@ h1:focus {
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
         border-color: #475569 !important;
     }
+/* Improve text visibility */
+
+.text-muted,
+.dashboard-subtitle {
+    color: #cbd5e1 !important;
+}
+
+.card .badge {
+    background-color: #064e3b !important;
+    color: #d1fae5 !important;
+    border: 1px solid #10b981;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 7px 12px !important;
+}
+
+.card .text-white {
+    color: #f8fafc !important;
+}
+
+.card strong {
+    color: #e2e8f0;
+}
+
+/* Improve card appearance */
+
+.transition-card {
+    border-radius: 14px !important;
+}
+
+    .transition-card:hover {
+        border-color: #10b981 !important;
+    }
+
+.card .card-body {
+    padding: 1rem;
+}
+
+/* Dashboard styling */
+
+.dashboard-subtitle {
+    line-height: 1.6;
+}
+
+.card h2 {
+    font-size: 2rem;
+}
+/* Details popup */
+
+.modal-content {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #334155;
+}
+
+.modal-header {
+    background-color: #065f46;
+    color: white;
+    border-bottom: 1px solid #334155;
+}
+
+.modal-body {
+    background-color: #1e293b;
+    color: #f1f5f9;
+}
+
+    .modal-body p,
+    .modal-body strong,
+    .modal-body span {
+        color: #f1f5f9;
+    }
+
+.modal-footer {
+    background-color: #1e293b;
+    border-top: 1px solid #334155;
+}
