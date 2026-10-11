@@ -12,31 +12,31 @@ Users can browse schools, search by school name, sort the list, add schools to f
 
 ## 🚀 Features
 
-\- Retrieves school information from the Edutots School API using `HttpClient`.
+- Retrieves school information from the Edutots School API using `HttpClient`.
 
-\- Displays schools in a card layout with their names and addresses.
+- Displays schools in a card layout with their names and addresses.
 
-\- Live search to filter schools by name.
+- Live search to filter schools by name.
 
-\- Sort schools alphabetically (A–Z and Z–A).
+- Sort schools alphabetically (A–Z and Z–A).
 
-\- View full school information by clicking **View Details**.
+- View full school information by clicking **View Details**.
 
-\- Add or remove schools from favourites using the star button.
+- Add or remove schools from favourites using the star button.
 
-\- Filter the school list to show favourites only.
+- Filter the school list to show favourites only.
 
-\- Refresh button to reload school data.
+- Refresh button to reload school data.
 
-\- Loading indicator while retrieving data.
+- Loading indicator while retrieving data.
 
-\- Error message when the API request fails.
+- Error message when the API request fails.
 
-\- Dashboard showing total schools and directory connection status.
+- Dashboard showing total schools and directory connection status.
 
-\- School list statistics showing total schools, displayed schools and favourites.
+- School list statistics showing total schools, displayed schools and favourites.
 
-\- Reusable Blazor `SchoolCard` component using parameters and `EventCallback`.
+- Reusable Blazor `SchoolCard` component using parameters and `EventCallback`.
 
 ## 🌐 API Endpoint
 
@@ -72,21 +72,21 @@ The school cards display basic information, while the details popup displays all
 
 ## 🛠 Technologies Used
 
-\- C# and .NET 10
+- C# and .NET 10
 
-\- Blazor Web App (Interactive Server)
+- Blazor Web App (Interactive Server)
 
-\- HttpClient
+- HttpClient
 
-\- JSON Deserialization
+- JSON Deserialization
 
-\- Bootstrap
+- Bootstrap
 
-\- HTML and CSS
+- HTML and CSS
 
-\- Visual Studio
+- Visual Studio
 
-\- Git and GitHub
+- Git and GitHub
 
 ## 📂 Project Structure
 
@@ -144,29 +144,29 @@ SchoolDirectoryApp_76239/
 
 ### Main Files
 
-\- **School.cs** — Defines the school model and its properties.
+- **School.cs** — Defines the school model and its properties.
 
-\- **SchoolService.cs** — Retrieves school data from the API.
+- **SchoolService.cs** — Retrieves school data from the API.
 
-\- **SchoolCard.razor** — Reusable component for displaying individual schools.
+- **SchoolCard.razor** — Reusable component for displaying individual schools.
 
-\- **SchoolDetail.razor** — Displays complete information about a selected school.
+- **SchoolDetail.razor** — Displays complete information about a selected school.
 
-\- **School.razor** — Displays the school list, search, sorting and favourites.
+- **School.razor** — Displays the school list, search, sorting and favourites.
 
-\- **Home.razor** — Displays the main dashboard.
+- **Home.razor** — Displays the main dashboard.
 
-\- **FavouriteService.cs** — Manages favourite school IDs.
+- **FavouriteService.cs** — Manages favourite school IDs.
 
 ## 🔧 Installation and Usage
 
 ### Requirements
 
-\- .NET 10 SDK
+- .NET 10 SDK
 
-\- Visual Studio with ASP.NET and web development support, or another compatible editor
+- Visual Studio with ASP.NET and web development support, or another compatible editor
 
-\- Internet connection to access the Edutots API
+- Internet connection to access the Edutots API
 
 ### Running the Application
 
@@ -250,7 +250,7 @@ This project demonstrates the use of Blazor components, API integration, data bi
 
 The goal is to provide a simple School Directory Dashboard that allows users to find schools and view their information easily.
 
-\---
+---
 
 **GitHub Repository:** https://github.com/Syed-Muneeb25/SchoolDirectoryApp_76239
 
