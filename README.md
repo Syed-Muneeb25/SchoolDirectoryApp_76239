@@ -1,372 +1,256 @@
-# \# School Directory Dashboard
+# School Directory Dashboard
 
-# 
+**Student ID:** 76239  
 
-# \*\*Student ID:\*\* 76239  
+**Project:** SchoolDirectoryApp_76239
 
-# \*\*Project:\*\* SchoolDirectoryApp\_76239
+## Overview
 
-# 
+School Directory Dashboard is a Blazor Web Application that retrieves school information from the Edutots School API and displays it in a simple, interactive interface.
 
-# \## Overview
+Users can browse schools, search by school name, sort the list, add schools to favourites, and view detailed information about individual schools. The application also includes a dashboard showing the total number of schools and the API connection status.
 
-# 
+## 🚀 Features
 
-# School Directory Dashboard is a Blazor Web Application that retrieves school information from the Edutots School API and displays it in a simple, interactive interface.
+\- Retrieves school information from the Edutots School API using `HttpClient`.
 
-# 
+\- Displays schools in a card layout with their names and addresses.
 
-# Users can browse schools, search by school name, sort the list, add schools to favourites, and view detailed information about individual schools. The application also includes a dashboard showing the total number of schools and the API connection status.
+\- Live search to filter schools by name.
 
-# 
+\- Sort schools alphabetically (A–Z and Z–A).
 
-# \## 🚀 Features
+\- View full school information by clicking **View Details**.
 
-# 
+\- Add or remove schools from favourites using the star button.
 
-# \- Retrieves school information from the Edutots School API using `HttpClient`.
+\- Filter the school list to show favourites only.
 
-# \- Displays schools in a card layout with their names and addresses.
+\- Refresh button to reload school data.
 
-# \- Live search to filter schools by name.
+\- Loading indicator while retrieving data.
 
-# \- Sort schools alphabetically (A–Z and Z–A).
+\- Error message when the API request fails.
 
-# \- View full school information by clicking \*\*View Details\*\*.
+\- Dashboard showing total schools and directory connection status.
 
-# \- Add or remove schools from favourites using the star button.
+\- School list statistics showing total schools, displayed schools and favourites.
 
-# \- Filter the school list to show favourites only.
+\- Reusable Blazor `SchoolCard` component using parameters and `EventCallback`.
 
-# \- Refresh button to reload school data.
+## 🌐 API Endpoint
 
-# \- Loading indicator while retrieving data.
+The application uses the Edutots School API:
 
-# \- Error message when the API request fails.
+```http
 
-# \- Dashboard showing total schools and directory connection status.
+GET https://edutots.net/api/school
 
-# \- School list statistics showing total schools, displayed schools and favourites.
+```
 
-# \- Reusable Blazor `SchoolCard` component using parameters and `EventCallback`.
+The API response is deserialized into the `School` model containing these seven fields:
 
-# 
+| Field | Description |
 
-# \## 🌐 API Endpoint
+|---|---|
 
-# 
+| `SchoolId` | School identification number |
 
-# The application uses the Edutots School API:
+| `SchoolName` | Name of the school |
 
-# 
+| `Address` | School address |
 
-# ```http
+| `PhoneNo` | Contact phone number |
 
-# GET https://edutots.net/api/school
+| `EmailAddress` | Email address |
 
-# ```
+| `ProprietorFullName` | Name of the proprietor |
 
-# 
+| `HeadFullName` | Name of the head of the school |
 
-# The API response is deserialized into the `School` model containing these seven fields:
+The school cards display basic information, while the details popup displays all seven fields.
 
-# 
+## 🛠 Technologies Used
 
-# | Field | Description |
+\- C# and .NET 10
 
-# |---|---|
+\- Blazor Web App (Interactive Server)
 
-# | `SchoolId` | School identification number |
+\- HttpClient
 
-# | `SchoolName` | Name of the school |
+\- JSON Deserialization
 
-# | `Address` | School address |
+\- Bootstrap
 
-# | `PhoneNo` | Contact phone number |
+\- HTML and CSS
 
-# | `EmailAddress` | Email address |
+\- Visual Studio
 
-# | `ProprietorFullName` | Name of the proprietor |
+\- Git and GitHub
 
-# | `HeadFullName` | Name of the head of the school |
+## 📂 Project Structure
 
-# 
+```text
 
-# The school cards display basic information, while the details popup displays all seven fields.
+SchoolDirectoryApp_76239/
 
-# 
+│
 
-# \## 🛠 Technologies Used
+├── Components/
 
-# 
+│   ├── Pages/
 
-# \- C# and .NET 10
+│   │   ├── Home.razor
 
-# \- Blazor Web App (Interactive Server)
+│   │   └── School.razor
 
-# \- HttpClient
+│   │
 
-# \- JSON Deserialization
+│   ├── SchoolCard.razor
 
-# \- Bootstrap
+│   ├── SchoolDetail.razor
 
-# \- HTML and CSS
+│   └── Layout/
 
-# \- Visual Studio
+│
 
-# \- Git and GitHub
+├── Models/
 
-# 
+│   └── School.cs
 
-# \## 📂 Project Structure
+│
 
-# 
+├── Services/
 
-# ```text
+│   ├── SchoolService.cs
 
-# SchoolDirectoryApp\_76239/
+│   └── FavouriteService.cs
 
-# │
+│
 
-# ├── Components/
+├── Screenshots/
 
-# │   ├── Pages/
+│
 
-# │   │   ├── Home.razor
+├── wwwroot/
 
-# │   │   └── School.razor
+│   └── app.css
 
-# │   │
+│
 
-# │   ├── SchoolCard.razor
+└── Program.cs
 
-# │   ├── SchoolDetail.razor
+```
 
-# │   └── Layout/
+### Main Files
 
-# │
+\- **School.cs** — Defines the school model and its properties.
 
-# ├── Models/
+\- **SchoolService.cs** — Retrieves school data from the API.
 
-# │   └── School.cs
+\- **SchoolCard.razor** — Reusable component for displaying individual schools.
 
-# │
+\- **SchoolDetail.razor** — Displays complete information about a selected school.
 
-# ├── Services/
+\- **School.razor** — Displays the school list, search, sorting and favourites.
 
-# │   ├── SchoolService.cs
+\- **Home.razor** — Displays the main dashboard.
 
-# │   └── FavouriteService.cs
+\- **FavouriteService.cs** — Manages favourite school IDs.
 
-# │
+## 🔧 Installation and Usage
 
-# ├── Screenshots/
+### Requirements
 
-# │
+\- .NET 10 SDK
 
-# ├── wwwroot/
+\- Visual Studio with ASP.NET and web development support, or another compatible editor
 
-# │   └── app.css
+\- Internet connection to access the Edutots API
 
-# │
+### Running the Application
 
-# └── Program.cs
+1. Clone the repository:
 
-# ```
+```bash
 
-# 
+git clone https://github.com/Syed-Muneeb25/SchoolDirectoryApp_76239.git
 
-# \### Main Files
+```
 
-# 
+2. Open the project directory:
 
-# \- \*\*School.cs\*\* — Defines the school model and its properties.
+```bash
 
-# \- \*\*SchoolService.cs\*\* — Retrieves school data from the API.
+cd SchoolDirectoryApp_76239/SchoolDirectoryApp_76239
 
-# \- \*\*SchoolCard.razor\*\* — Reusable component for displaying individual schools.
+```
 
-# \- \*\*SchoolDetail.razor\*\* — Displays complete information about a selected school.
+3. Run the application:
 
-# \- \*\*School.razor\*\* — Displays the school list, search, sorting and favourites.
+```bash
 
-# \- \*\*Home.razor\*\* — Displays the main dashboard.
+dotnet run
 
-# \- \*\*FavouriteService.cs\*\* — Manages favourite school IDs.
+```
 
-# 
+4. Open the localhost address displayed in the terminal.
 
-# \## 🔧 Installation and Usage
+Alternatively, open `SchoolDirectoryApp_76239.slnx` in Visual Studio and run the project.
 
-# 
+## 📸 Screenshots
 
-# \### Requirements
+### 1. Dashboard
 
-# 
+The homepage displays the total number of schools and the directory connection status.
 
-# \- .NET 10 SDK
+![Dashboard](SchoolDirectoryApp_76239/Screenshots/Dashboard.png)
 
-# \- Visual Studio with ASP.NET and web development support, or another compatible editor
+### 2. School List
 
-# \- Internet connection to access the Edutots API
+Schools are displayed as cards with their names, addresses, favourite buttons and View Details buttons.
 
-# 
+![School List](SchoolDirectoryApp_76239/Screenshots/School%20Lists.png)
 
-# \### Running the Application
+### 3. School Details
 
-# 
+Clicking View Details opens a popup showing all seven school information fields.
 
-# 1\. Clone the repository:
+![School Details](SchoolDirectoryApp_76239/Screenshots/Details.png)
 
-# 
+### 4. Search and Sorting
 
-# ```bash
+Users can search for schools by name and change the alphabetical sorting order.
 
-# git clone https://github.com/Syed-Muneeb25/SchoolDirectoryApp\_76239.git
+![Descending Sorting](SchoolDirectoryApp_76239/Screenshots/Filtering%20Desc.png)
 
-# ```
+### 5. Favourites
 
-# 
+Users can mark schools as favourites and filter the list to display only their selected schools.
 
-# 2\. Open the project directory:
+![Favourites](SchoolDirectoryApp_76239/Screenshots/Favourites.png)
 
-# 
+### 6. Loading State
 
-# ```bash
+A loading indicator appears while the application is retrieving school information.
 
-# cd SchoolDirectoryApp\_76239/SchoolDirectoryApp\_76239
+![Loading State](SchoolDirectoryApp_76239/Screenshots/Loading%20Directories.png)
 
-# ```
+### 7. Error State
 
-# 
+An error message is displayed when the API request fails.
 
-# 3\. Run the application:
+![Error State 1](SchoolDirectoryApp_76239/Screenshots/Error%201.png)
 
-# 
+![Error State 2](SchoolDirectoryApp_76239/Screenshots/Error%202.png)
 
-# ```bash
+## ✅ Conclusion
 
-# dotnet run
+This project demonstrates the use of Blazor components, API integration, data binding, EventCallback, searching, sorting and basic error handling.
 
-# ```
+The goal is to provide a simple School Directory Dashboard that allows users to find schools and view their information easily.
 
-# 
+\---
 
-# 4\. Open the localhost address displayed in the terminal.
-
-# 
-
-# Alternatively, open `SchoolDirectoryApp\_76239.slnx` in Visual Studio and run the project.
-
-# 
-
-# \## 📸 Screenshots
-
-# 
-
-# \### 1. Dashboard
-
-# 
-
-# The homepage displays the total number of schools and the directory connection status.
-
-# 
-
-# !\[Dashboard](SchoolDirectoryApp\_76239/Screenshots/Dashboard.png)
-
-# 
-
-# \### 2. School List
-
-# 
-
-# Schools are displayed as cards with their names, addresses, favourite buttons and View Details buttons.
-
-# 
-
-# !\[School List](SchoolDirectoryApp\_76239/Screenshots/School%20Lists.png)
-
-# 
-
-# \### 3. School Details
-
-# 
-
-# Clicking View Details opens a popup showing all seven school information fields.
-
-# 
-
-# !\[School Details](SchoolDirectoryApp\_76239/Screenshots/Details.png)
-
-# 
-
-# \### 4. Search and Sorting
-
-# 
-
-# Users can search for schools by name and change the alphabetical sorting order.
-
-# 
-
-# !\[Descending Sorting](SchoolDirectoryApp\_76239/Screenshots/Filtering%20Desc.png)
-
-# 
-
-# \### 5. Favourites
-
-# 
-
-# Users can mark schools as favourites and filter the list to display only their selected schools.
-
-# 
-
-# !\[Favourites](SchoolDirectoryApp\_76239/Screenshots/Favourites.png)
-
-# 
-
-# \### 6. Loading State
-
-# 
-
-# A loading indicator appears while the application is retrieving school information.
-
-# 
-
-# !\[Loading State](SchoolDirectoryApp\_76239/Screenshots/Loading%20Directories.png)
-
-# 
-
-# \### 7. Error State
-
-# 
-
-# An error message is displayed when the API request fails.
-
-# 
-
-# !\[Error State 1](SchoolDirectoryApp\_76239/Screenshots/Error%201.png)
-
-# 
-
-# !\[Error State 2](SchoolDirectoryApp\_76239/Screenshots/Error%202.png)
-
-# 
-
-# \## ✅ Conclusion
-
-# 
-
-# This project demonstrates the use of Blazor components, API integration, data binding, EventCallback, searching, sorting and basic error handling.
-
-# 
-
-# The goal is to provide a simple School Directory Dashboard that allows users to find schools and view their information easily.
-
-# 
-
-# \---
-
-# 
-
-# \*\*GitHub Repository:\*\* https://github.com/Syed-Muneeb25/SchoolDirectoryApp\_76239
+**GitHub Repository:** https://github.com/Syed-Muneeb25/SchoolDirectoryApp_76239
 
