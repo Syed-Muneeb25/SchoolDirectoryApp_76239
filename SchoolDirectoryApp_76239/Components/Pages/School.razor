@@ -1,42 +1,49 @@
 ﻿@page "/schools"
 @inject SchoolService Service
 @inject FavouritesService Favourites
+@using SchoolModel = SchoolDirectoryApp_76239.Models.School
 
 <PageTitle>School Directory</PageTitle>
 
-<div class="mb-4">
-    <h1 class="page-title">School Directory</h1>
-    <p class="text-muted mb-0">Browse and search schools from the Edutots School API.</p>
+<!-- Header Section -->
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary">
+    <div>
+        <h1 class="fw-bold text-white mb-1">Explore Schools</h1>
+        <p class="text-muted mb-0">Browse and filter institutions from the directory registry.</p>
+    </div>
+    <button class="btn btn-primary px-4" @onclick="LoadSchools">
+        Refresh Data
+    </button>
 </div>
 
-@* Search, sort, favourites filter and refresh *@
-<div class="card panel mb-3">
-    <div class="card-body">
-        <div class="row g-2 align-items-center">
-            <div class="col-lg-5">
-                <input @bind="Search"
-                       @bind:event="oninput"
-                       class="form-control"
-                       placeholder="Search school..." />
-            </div>
+<!-- Search & Filter Control Bar -->
+<div class="card p-3 mb-4">
+    <div class="row g-3 align-items-center">
+        <div class="col-lg-5">
+            <input @bind="Search"
+                   @bind:event="oninput"
+                   class="form-control"
+                   placeholder="Search school by name..." />
+        </div>
 
-            <div class="col-lg-3 col-md-6">
-                <select class="modern-select" @bind="sortOrder">
-                    <option value="asc">Name A → Z</option>
-                    <option value="desc">Name Z → A</option>
-                </select>
-            </div>
+        <div class="col-lg-3 col-md-6">
+            <select class="modern-select" @bind="sortOrder">
+                <option value="asc">Name: A → Z</option>
+                <option value="desc">Name: Z → A</option>
+            </select>
+        </div>
 
-            <div class="col-lg-2 col-md-3">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch"
-                           id="favOnly" @bind="showFavouritesOnly" />
-                    <label class="form-check-label" for="favOnly">Favourites only</label>
-                </div>
+        <div class="col-lg-2 col-md-3">
+            <div class="form-check form-switch custom-switch">
+                <input class="form-check-input darker-border-checkbox" type="checkbox" role="switch"
+                       id="favOnly" @bind="showFavouritesOnly" />
+                <label class="form-check-label text-light ms-2" for="favOnly">Favourites only</label>
             </div>
+        </div>
 
-            <div class="col-lg-2 col-md-3">
-                <button class="btn btn-primary w-100" @onclick="LoadSchools">Refresh</button>
+        <div class="col-lg-2 col-md-3">
+            <div class="text-muted text-end small">
+                Total: <strong>@(schools?.Count ?? 0)</strong>
             </div>
         </div>
     </div>
@@ -44,89 +51,86 @@
 
 @if (error)
 {
-    @* if the API call failed *@
-    <div class="alert alert-danger" role="alert">
-        Unable to retrieve school data.
+    <div class="alert alert-danger border-0 bg-danger text-white rounded-3 shadow-sm" role="alert">
+        Unable to retrieve school data from the server.
     </div>
 }
 else if (schools == null)
 {
-    @* waiting for the data *@
-    <div class="text-center text-muted py-5">
-        <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
-        Loading schools...
+    <div class="text-center text-muted py-5 my-5">
+        <div class="spinner-border text-success mb-3" role="status"></div>
+        <p class="h5 text-light">Loading directories...</p>
     </div>
 }
 else
 {
-    @* The schools after search, filter and sort *@
     var filtered = FilteredSchools.ToList();
 
-    @* Statistics *@
-    <div class="row g-3 mb-3">
+    <!-- Statistics Overview Chips -->
+    <div class="row g-3 mb-4">
         <div class="col-md-4">
-            <div class="card panel stat-card">
-                <div class="card-body">
-                    <div class="stat-label">Total schools</div>
-                    <div class="stat-value">@schools.Count</div>
-                </div>
+            <div class="card panel p-3">
+                <div class="text-muted small">Total Schools</div>
+                <div class="h4 fw-bold text-white mb-0">@schools.Count</div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card panel stat-card green">
-                <div class="card-body">
-                    <div class="stat-label">Showing now</div>
-                    <div class="stat-value">@filtered.Count</div>
-                </div>
+            <div class="card panel p-3">
+                <div class="text-muted small">Showing Now</div>
+                <div class="h4 fw-bold text-success mb-0">@filtered.Count</div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card panel stat-card amber">
-                <div class="card-body">
-                    <div class="stat-label">Favourites</div>
-                    <div class="stat-value">@Favourites.Count</div>
-                </div>
+            <div class="card panel p-3">
+                <div class="text-muted small">Favourites</div>
+                <div class="h4 fw-bold text-warning mb-0">@Favourites.Count</div>
             </div>
         </div>
     </div>
 
-    @* Table of schools *@
-    <div class="card panel overflow-hidden">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0 school-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>School Name</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Proprietor</th>
-                        <th>Head</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var school in filtered)
-                    {
-                        <SchoolCard School="school"
-                                    IsFavourite="@Favourites.IsFavourite(school.SchoolId)"
-                                    OnSelect="ShowDetails"
-                                    OnToggleFavourite="ToggleFavourite" />
-                    }
+    <!-- Modern Card Grid Layout -->
+    <div class="row g-4">
+        @foreach (var school in filtered)
+        {
+            <div class="col-xl-4 col-md-6">
+                <div class="card h-100 position-relative p-3 transition-card">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded">ID: @school.SchoolId</span>
+                            <button class="btn btn-sm text-warning p-0 border-0 bg-transparent" @onclick="() => ToggleFavourite(school)">
+                                <i class="bi @(Favourites.IsFavourite(school.SchoolId) ? "bi-star-fill" : "bi-star") fs-5"></i>
+                            </button>
+                        </div>
 
-                    @if (!filtered.Any())
-                    {
-                        <tr>
-                            <td colspan="8" class="text-center text-muted py-4">No schools found.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                        <h4 class="h5 fw-bold text-white mb-2">@school.SchoolName</h4>
+                        <p class="text-muted small mb-3 flex-grow-1">
+                            <i class="bi bi-geo-alt me-1 text-success"></i> 
+                            @(string.IsNullOrEmpty(school.Address) ? "No address specified" : school.Address)
+                        </p>
+
+                        <div class="border-top border-secondary pt-3 mt-auto">
+                            <!-- Fixed property name mapping to match School.cs -->
+                            <div class="small text-muted mb-1"><strong>Phone:</strong> @(string.IsNullOrEmpty(school.PhoneNo) ? "N/A" : school.PhoneNo)</div>
+                            <div class="small text-muted mb-3"><strong>Head:</strong> @(string.IsNullOrEmpty(school.HeadFullName) ? "N/A" : school.HeadFullName)</div>
+                            
+                            <button class="btn btn-primary w-100 btn-sm" @onclick="() => ShowDetails(school)">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!filtered.Any())
+        {
+            <div class="col-12 text-center py-5">
+                <div class="card panel p-5">
+                    <p class="h5 text-light mb-0">No schools found matching your search or filter.</p>
+                </div>
+            </div>
+        }
     </div>
-
-    <p class="text-muted small mt-2">Click a school to see its details.</p>
 }
 
 @* Pop-up with the details of the selected school *@
@@ -136,46 +140,40 @@ else
 }
 
 @code {
-    private List<School>? schools;  // all schools (null = still loading)
-    private School? selectedSchool;   // the clicked school (null = no pop-up)
-    private bool error;     // true if the API failed
-    private string Search { get; set; } = string.Empty;  // what the user typed
-    private string sortOrder = "asc";  // "asc" = A to Z, "desc" = Z to A
-    private bool showFavouritesOnly;    // is "Favourites only" switched on?
+    private List<SchoolModel>? schools;          
+    private SchoolModel? selectedSchool;        
+    private bool error;                         
+    private string Search { get; set; } = string.Empty;  
+    private string sortOrder = "asc";           
+    private bool showFavouritesOnly;            
 
-    // Search, then favourites filter, then sort
-    private IEnumerable<School> FilteredSchools
+    private IEnumerable<SchoolModel> FilteredSchools
     {
         get
         {
-            // Keep schools whose name contains the search text
             var result = schools!.Where(s =>
                 s.SchoolName.Contains(Search, StringComparison.OrdinalIgnoreCase));
 
-            // Keep only favourites if the switch is on
             if (showFavouritesOnly)
             {
                 result = result.Where(s => Favourites.IsFavourite(s.SchoolId));
             }
 
-            // Sort by name
             return sortOrder == "asc"
                 ? result.OrderBy(s => s.SchoolName, StringComparer.OrdinalIgnoreCase)
                 : result.OrderByDescending(s => s.SchoolName, StringComparer.OrdinalIgnoreCase);
         }
     }
 
-    // Runs when the page opens
     protected override async Task OnInitializedAsync()
     {
         await LoadSchools();
     }
 
-    // Gets the schools from the API
     private async Task LoadSchools()
     {
         error = false;
-        schools = null;   // shows "Loading..."
+        schools = null;         
         selectedSchool = null;
 
         try
@@ -184,24 +182,21 @@ else
         }
         catch
         {
-            error = true;  // shows the error message
+            error = true;       
         }
     }
 
-    // A row was clicked: open the pop-up
-    private void ShowDetails(School school)
+    private void ShowDetails(SchoolModel school)
     {
         selectedSchool = school;
     }
 
-    // The pop-up was closed
     private void CloseDetails()
     {
         selectedSchool = null;
     }
 
-    // A star was clicked: add or remove the favourite
-    private void ToggleFavourite(School school)
+    private void ToggleFavourite(SchoolModel school)
     {
         Favourites.Toggle(school.SchoolId);
     }
