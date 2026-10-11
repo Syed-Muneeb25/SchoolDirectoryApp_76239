@@ -1,26 +1,54 @@
-﻿<tr class="school-row" @onclick="() => OnSelect.InvokeAsync(School)">
-    <td class="text-muted">@School.SchoolId</td>
-    <td class="fw-semibold" style="min-width: 180px;">@School.SchoolName</td>
+﻿
+@using SchoolDirectoryApp_76239.Models
 
-    <td class="text-muted">
-        <div class="cell-clamp" title="@School.Address">@School.Address</div>
-    </td>
-    <td class="text-nowrap">@School.PhoneNo</td>
-    <td class="text-muted">
-        <div class="cell-clamp" title="@School.EmailAddress">@School.EmailAddress</div>
-    </td>
-    <td>@School.ProprietorFullName</td>
-    <td>@School.HeadFullName</td>
+<div class="col-xl-4 col-md-6">
+    <div class="card h-100 position-relative p-3 transition-card">
+        <div class="card-body d-flex flex-column">
 
-    <td class="text-end">
-        <button class="star-btn @(IsFavourite ? "" : "off")"
-                title="@(IsFavourite ? "Remove from favourites" : "Add to favourites")"
-                @onclick="() => OnToggleFavourite.InvokeAsync(School)"
-                @onclick:stopPropagation="true">
-            @(IsFavourite ? "★" : "☆")
-        </button>
-    </td>
-</tr>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded">
+                    ID: @School.SchoolId
+                </span>
+
+                <button class="btn btn-sm text-warning p-0 border-0 bg-transparent"
+                        @onclick="() => OnToggleFavourite.InvokeAsync(School)">
+                    <i class="bi @(IsFavourite ? "bi-star-fill" : "bi-star") fs-5"></i>
+                </button>
+            </div>
+
+            <h4 class="h5 fw-bold text-white mb-2">@School.SchoolName</h4>
+
+            <p class="text-muted small mb-3">
+                <i class="bi bi-geo-alt me-1 text-success"></i>
+                @School.Address
+            </p>
+
+            <div class="border-top border-secondary pt-3 mt-auto">
+                <div class="small text-muted mb-1">
+                    <strong>Phone:</strong> @School.PhoneNo
+                </div>
+
+                <div class="small text-muted mb-1">
+                    <strong>Email:</strong> @School.EmailAddress
+                </div>
+
+                <div class="small text-muted mb-1">
+                    <strong>Proprietor:</strong> @School.ProprietorFullName
+                </div>
+
+                <div class="small text-muted mb-3">
+                    <strong>Head:</strong> @School.HeadFullName
+                </div>
+
+                <button class="btn btn-primary w-100 btn-sm"
+                        @onclick="() => OnSelect.InvokeAsync(School)">
+                    View Details
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @code {
     [Parameter]
